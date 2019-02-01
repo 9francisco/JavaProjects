@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+              http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+              http://www.springframework.org/schema/tx
+              http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+              http://www.springframework.org/schema/context
+              http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+              
+    <context:component-scan base-package="com.opm.eis.dao" />
+
+    <tx:annotation-driven />
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName"><value>oracle.jdbc.OracleDriver</value></property>
+		<property name="url"><value>jdbc:oracle:thin:@10.0.152.79:1561:DBOPM</value></property>
+		<property name="username"><value>UF913781</value></property>
+		<property name="password"><value>uf913781</value></property>
+	</bean>
+
+    
+    <!-- See page 303 of Spring Recipes (2008) -->
+    <bean id="sessionFactory"
+        class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean" >
+        
+        <property name="dataSource" ref="dataSource" />
+        <property name="annotatedClasses">
+            <list>
+                <value>com.opm.eis.model.Users</value>
+                <value>com.opm.eis.model.Roles</value>
+                <value>com.opm.eis.model.UserPrivileges</value>
+                <value>com.opm.eis.model.UserPasswords</value>
+                <value>com.opm.eis.model.RolesPrivileges</value>
+                <value>com.opm.eis.model.Offices</value>
+                <value>com.opm.eis.model.Indicators</value>
+                <value>com.opm.eis.model.BalanceScorecards</value>
+                <value>com.opm.eis.model.CorporateThrusts</value>
+                <value>com.opm.eis.model.PerformanceAreas</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <!-- <prop key="hibernate.connection.pool_size">1</prop> -->
+				<prop key="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</prop>
+                <prop key="hibernate.c3p0.acquire_increment">1</prop>
+                <prop key="hibernate.c3p0.idle_test_period">60</prop>
+                <prop key="hibernate.c3p0.max_size">20</prop>
+                <prop key="hibernate.c3p0.max_statements">0</prop>
+                <prop key="hibernate.c3p0.min_size">0</prop>
+                <prop key="hibernate.c3p0.timeout">60</prop>
+            </props>
+        </property>
+
+        
+    </bean>
+
+	<bean id="rolesAction" class="com.opm.eis.action.RolesAction" scope="prototype">
+		<constructor-arg><ref bean="roleService"/></constructor-arg>
+	</bean>
+
+    <!--  List of DAO Connections -->
+    <bean name="userDao" class="com.opm.eis.dao.UsersDaoHibernate">
+    	<property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean name="roleDao" class="com.opm.eis.dao.RolesDaoHibernate">
+    	<property name="sessionFactory" ref="sessionFactory" />
+    </bean> 
+
+    <bean name="userprivilegeDao" class="com.opm.eis.dao.UserPrivilegesDaoHibernate">
+    	<property name="sessionFactory" ref="sessionFactory" />
+    </bean>       
+       
+    <bean name="officeDao" class="com.opm.eis.dao.OfficesDaoHibernate">
+    	<property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+ 
+     <bean name="indicatorDao" class="com.opm.eis.dao.IndicatorsDaoHibernate">
+    	<property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean name="strategyMetricBSCDao" class="com.opm.eis.dao.StrategyMetricsBSCDaoHibernate">
+    	<property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean name="strategyMetricCTDao" class="com.opm.eis.dao.StrategyMetricsCTDaoHibernate">
+    	<property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean name="strategyMetricPADao" class="com.opm.eis.dao.StrategyMetricsPADaoHibernate">
+    	<property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <!--  List of Service Configurations -->
+    <bean name="userService" class="com.opm.eis.service.UsersServiceImpl">
+    	<property name="userDao" ref="userDao" />
+    </bean>
+
+    <bean name="roleService" class="com.opm.eis.service.RolesServiceImpl">
+    	<property name="roleDao" ref="roleDao" />
+    </bean>	    
+
+    <bean name="userprivilegeService" class="com.opm.eis.service.UserPrivilegesServiceImpl">
+    	<property name="userprivilegeDao" ref="userprivilegeDao" />
+    </bean>    
+    
+    <bean name="officeService" class="com.opm.eis.service.OfficesServiceImpl">
+    	<property name="officeDao" ref="officeDao" />
+    </bean>
+
+    <bean name="indicatorService" class="com.opm.eis.service.IndicatorsServiceImpl">
+    	<property name="indicatorDao" ref="indicatorDao" />
+    </bean>
+    
+    <bean name="strategyMetricBSCService" class="com.opm.eis.service.StrategyMetricsBSCServiceImpl">
+    	<property name="strategyMetricBSCDao" ref="strategyMetricBSCDao" />
+    </bean>
+
+    <bean name="strategyMetricCTService" class="com.opm.eis.service.StrategyMetricsCTServiceImpl">
+    	<property name="strategyMetricCTDao" ref="strategyMetricCTDao" />
+    </bean>
+
+    <bean name="strategyMetricPAService" class="com.opm.eis.service.StrategyMetricsPAServiceImpl">
+    	<property name="strategyMetricPADao" ref="strategyMetricPADao" />
+    </bean>
+    
+    <bean id="transactionManager"
+        class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+    
+</beans>

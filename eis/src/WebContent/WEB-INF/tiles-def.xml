@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+	"-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+	"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+	
+<tiles-definitions>
+	<!-- Base Tiles Definition -->
+	<definition name="base.definition" template="/jsp/siteLayout.jsp">
+		<put-attribute name="header" value="/jsp/header.jsp" />
+		<put-attribute name="topMenu1" value="/jsp/topMenu1.jsp" />
+		<put-attribute name="topMenu2" value="/jsp/topMenu2.jsp" />
+		<put-attribute name="footer" value="/jsp/footer.jsp" />
+	</definition>
+	
+	<!-- Tiles Definition for Welcome/Home Page -->
+	<definition name="welcome" extends="base.definition">
+		<put-attribute name="title" value="EIS - OPM System" />
+		<put-attribute name="mainContent" value="/jsp/welcome.jsp" />
+	</definition>
+
+	<!-- Tiles Definition for References Pages: Users - System User -->
+	<definition name="systemUser" extends="base.definition">
+		<put-attribute name="title" value="EIS - OPM System: Users" />
+		<put-attribute name="mainContent" value="/jsp/references/users/user.jsp" />
+	</definition>
+	
+	<!-- Tiles Definition for References Pages: Users - Role -->
+	<definition name="role" extends="base.definition">
+		<put-attribute name="title" value="EIS - OPM System: Users" />
+		<put-attribute name="mainContent" value="/jsp/references/users/role.jsp" />
+	</definition>
+
+
+	<!-- Tiles Definition for References Pages: Users - Privilege -->
+	<definition name="userprivilege" extends="base.definition">
+		<put-attribute name="title" value="EIS - OPM System: Users" />
+		<put-attribute name="mainContent" value="/jsp/references/users/userprivilege.jsp" />
+	</definition>	
+
+	<!-- Tiles Definition for References Pages: Login -->
+	<definition name="login" template="/jsp/login.jsp">
+		<put-attribute name="title" value="EIS - OPM System: login" />
+	</definition>	
+
+	<!-- Tiles Definition for Account Settings Page -->
+	<definition name="accountSettings" extends="base.definition">
+		<put-attribute name="title" value="EIS - OPM System: Account Settings" />
+		<put-attribute name="mainContent" value="/jsp/accountSettings.jsp" />
+	</definition>
+
+	<!-- Tiles Definition for Account Settings Page: Change Password -->
+	<definition name="changePassword" extends="base.definition">
+		<put-attribute name="title" value="EIS - OPM System: Change Password" />
+		<put-attribute name="mainContent" value="/jsp/changePassword.jsp" />
+	</definition>
+
+	<!-- Tiles Definition for Account Settings Page: Change Password -->
+	<definition name="modifyPassword" extends="base.definition">
+		<put-attribute name="title" value="EIS - OPM System: Change Password" />
+		<put-attribute name="mainContent" value="/jsp/modifyPassword.jsp" />
+	</definition>	
+	
+	<!-- Tiles Definition for References Pages: Offices -->
+	<definition name="offices" extends="base.definition">
+		<put-attribute name="title" value="EIS - OPM System: Offices" />
+		<put-attribute name="mainContent" value="/jsp/references/offices/officesMain.jsp" />
+	</definition>
+
+	<!-- Tiles Definition for References Pages: Indicators - Strategy/Metrics Management -->
+	<definition name="strategyMetrics" extends="base.definition">
+		<put-attribute name="title" value="EIS - OPM System: Indicators - Strategy/Metrics Management" />
+		<put-attribute name="mainContent" value="/jsp/references/strategyMetricsMng/strategyMetrics.jsp" />
+	</definition>
+
+	<!-- Tiles Definition for References Pages: Indicators - Standard Indicators -->
+	<definition name="indicatorsStandardIndicators" extends="base.definition">
+		<put-attribute name="title" value="EIS - OPM System: Indicators - Standard Indicators" />
+		<put-attribute name="mainContent" value="/jsp/references/standardIndicators/standardIndicators.jsp" />
+	</definition>
+	
+	
+	
+</tiles-definitions>
+
+
