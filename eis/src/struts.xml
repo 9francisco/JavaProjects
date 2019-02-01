@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+   <constant name="struts.devMode" value="true" />
+   <constant name="struts.action.extension" value="action" />
+   <constant name="struts.ui.theme" value="simple" />
+   
+	<!-- Configuration for the default package. -->
+	<package name="default" extends="struts-default" >
+    	<result-types>
+      	<result-type name="tiles" 
+                   	 class="org.apache.struts2.views.tiles.TilesResult" />
+    	</result-types>	
+
+		<action name="welcome" >
+			<result name="success" type="tiles">welcome</result>
+ 		</action>
+
+		<action name="loginUser" method="authenticate"
+			class="com.opm.eis.action.UsersAction">
+			<result name="success" type="tiles">welcome</result>
+			<result name="error" type="tiles">login</result>
+ 		</action>
+
+		<action name="logoutUser" method="logout"
+			class="com.opm.eis.action.UsersAction">
+			<result name="success" type="tiles">login</result>
+ 		</action>
+
+		<action name="accountSettings" class="com.opm.eis.action.UsersAction" method="userdetails">
+			<result name="success" type="tiles">accountSettings</result>
+		</action>
+
+		<action name="changePassword" class="com.opm.eis.action.UsersAction" method="userdetails">
+			<result name="success" type="tiles">changePassword</result>
+		</action>	
+
+		<action name="modifyPassword" class="com.opm.eis.action.UsersAction" method="modifyPassword">
+			<result name="success" type="tiles">changePassword</result>
+			<result name="error" type="tiles">changePassword</result>
+		</action>		
+
+		<action name="index" class="com.opm.eis.action.UsersAction" method="list">
+			<result name="success" type="tiles">login</result>
+			<result name="input" type="tiles">login</result>
+		</action>
+
+
+		<!-- Start Configuration for Users: System User -->
+		<action name="displayUsers" class="com.opm.eis.action.UsersAction" method="list">
+			<result name="success" type="tiles">systemUser</result>
+		</action>	
+
+	   <action name="addUserInput" class="com.opm.eis.action.UsersAction" method="input">
+			<result name="input" type="tiles">systemUser</result>
+		</action>
+		
+		<action name="addUserSave" class="com.opm.eis.action.UsersAction" method="save">
+			<result name="success" type="tiles">systemUser</result>
+
+		</action>
+
+		<action name="addUser" class="com.opm.eis.action.UsersAction" method="add">
+			<result name="success" type="tiles">systemUser</result>
+		</action>
+		
+		<action name="editUserInput" class="com.opm.eis.action.UsersAction" method="input">
+			<result name="success" type="redirectAction">
+				<param name="actionName">displayUsers</param>
+			</result>
+			<result name="input" type="tiles">systemUser</result>
+		</action>
+		
+		<action name="deleteUser" class="com.opm.eis.action.UsersAction" method="delete">
+			<result name="success" type="tiles">systemUser</result>
+		</action>
+
+	   <action name="viewUserDetails" class="com.opm.eis.action.UsersAction" method="view">
+			<result name="success" type="tiles">systemUser</result>
+		</action>
+		<!-- End Configuration for Users: System User -->
+
+		<!-- Start Configuration for Users: Role -->
+		<action name="displayRoles" class="com.opm.eis.action.RolesAction" method="list">
+			<result name="success" type="tiles">role</result>
+		</action>	
+
+	   <action name="addRoleInput" class="rolesAction" method="input">
+			<result name="input" type="tiles">role</result>
+		</action>
+		
+		<action name="addRoleSave" class="rolesAction" method="save">
+			<result name="success" type="tiles">role</result>
+
+		</action>
+
+		<action name="addRole" class="com.opm.eis.action.RolesAction" method="add">
+			<result name="success" type="tiles">role</result>
+		</action>
+		
+		<action name="editRoleInput" class="com.opm.eis.action.RolesAction" method="input">
+			<result name="success" type="redirectAction">
+				<param name="actionName">displayRoles</param>
+			</result>
+			<result name="input" type="tiles">role</result>
+		</action>
+		
+		<action name="deleteRole" class="com.opm.eis.action.RolesAction" method="delete">
+			<result name="success" type="tiles">role</result>
+		</action>
+
+	   <action name="viewRoleDetails" class="com.opm.eis.action.RolesAction" method="view">
+			<result name="success" type="tiles">role</result>
+		</action>
+
+		<action name="populatePrivileges" class="com.opm.eis.action.RolesAction" method="populate">
+			<result>/jsp/references/users/rolePrivilege.jsp</result>
+		</action>
+				
+		<!-- End Configuration for Users: Role -->
+	
+		<!-- Start Configuration for Users: User Privileges -->
+		<action name="displayUserPrivileges" class="com.opm.eis.action.UserPrivilegesAction" method="list">
+			<result name="success" type="tiles">userprivilege</result>
+		</action>	
+
+	   <action name="addUserPrivilegeInput" class="com.opm.eis.action.UserPrivilegesAction" method="input">
+			<result name="input" type="tiles">userprivilege</result>
+		</action>
+		
+		<action name="addUserPrivilegeSave" class="com.opm.eis.action.UserPrivilegesAction" method="save">
+			<result name="success" type="tiles">userprivilege</result>
+
+		</action>
+
+		<action name="addUserPrivilege" class="com.opm.eis.action.UserPrivilegesAction" method="add">
+			<result name="success" type="tiles">userprivilege</result>
+		</action>
+		
+		<action name="editUserPrivilegeInput" class="com.opm.eis.action.UserPrivilegesAction" method="input">
+			<result name="success" type="redirectAction">
+				<param name="actionName">displayUserPrivileges</param>
+			</result>
+			<result name="input" type="tiles">userprivilege</result>
+		</action>
+		
+		<action name="deleteUserPrivilege" class="com.opm.eis.action.UserPrivilegesAction" method="delete">
+			<result name="success" type="tiles">userprivilege</result>
+		</action>
+
+	   <action name="viewUserPrivilegeDetails" class="com.opm.eis.action.UserPrivilegesAction" method="view">
+			<result name="success" type="tiles">userprivilege</result>
+		</action>
+		<!-- End Configuration for Users: User Privileges -->	
+		
+		<!-- Offices Actions. -->
+	
+		<action name="displayOffices" class="com.opm.eis.action.OfficesAction" method="list">
+			<result name="success" type="tiles">offices</result>
+		</action>				
+
+		<action name="populateOffices" class="com.opm.eis.action.OfficesAction" method="populate">
+			<result>/jsp/references/offices/detail.jsp</result>
+		</action>
+
+	   	<action name="addOfficeInput" class="com.opm.eis.action.OfficesAction" method="input">
+			<result name="input" type="tiles">offices</result>
+		</action>		
+
+		<action name="addOffice" class="com.opm.eis.action.OfficesAction" method="add">
+			<result name="success" type="tiles">offices</result>
+		</action>
+		
+		<action name="addOfficeSave" class="com.opm.eis.action.OfficesAction" method="save">
+			<result name="success" type="tiles">offices</result>
+		</action>
+
+		<action name="editOfficeInput" class="com.opm.eis.action.OfficesAction" method="input">
+			<result name="input" type="tiles">offices</result>
+		</action>
+		
+		<action name="deleteOffice" class="com.opm.eis.action.OfficesAction" method="delete">
+			<result name="success" type="tiles">offices</result>
+		</action>
+
+		<action name="viewOfficeDetails" class="com.opm.eis.action.OfficesAction" method="view">
+			<result name="success" type="tiles">offices</result>
+		</action>
+
+	<!-- End Configuration for Users: Offices -->	
+	
+	<!-- Start Configuration for Strategy/Metrics Management -->
+		<action name="strategyMetricsMng" class="com.opm.eis.action.StrategyMetricsAction" method="display">
+			<result name="success" type="tiles">strategyMetrics</result>
+		</action>
+
+		<action name="addStrategyMetricSave" class="com.opm.eis.action.StrategyMetricsAction" method="save">
+			<result name="success" type="tiles">strategyMetrics</result>
+		</action>
+		
+		<action name="addStrategyMetric" class="com.opm.eis.action.StrategyMetricsAction" method="add">
+			<result name="success" type="tiles">strategyMetrics</result>
+		</action>
+		
+		<action name="changeStrategyMetric" class="com.opm.eis.action.StrategyMetricsAction" method="changeType">
+			<result>/jsp/references/strategyMetricsMng/changeType.jsp</result>
+		</action>
+	
+		<action name="populateStrategyMetric" class="com.opm.eis.action.StrategyMetricsAction" method="populate">
+			<result name="success" type="tiles">strategyMetrics</result>
+		</action>
+
+		<action name="populateStrategyMetricIndicators" class="com.opm.eis.action.StrategyMetricsAction" method="populateIndicators">
+			<result name="success">/jsp/references/strategyMetricsMng/listIndicators.jsp</result>
+		</action>
+	
+		<action name="viewStrategyMetric" class="com.opm.eis.action.StrategyMetricsAction" method="view">
+			<result name="success" type="tiles">strategyMetrics</result>
+		</action>
+	
+		<action name="editStrategyMetric" class="com.opm.eis.action.StrategyMetricsAction" method="input">
+			<result name="success" type="tiles">strategyMetrics</result>
+		</action>
+	
+	<!-- End Configuration for Strategy/Metrics Management -->
+
+	<!-- Start Configuration for Indicators Management -->
+		<action name="addIndicator" class="com.opm.eis.action.IndicatorsAction" method="add">
+			<result name="success">/jsp/references/strategyMetricsMng/indicatorAdd.jsp</result>
+		</action>
+		
+		<action name="addIndicatorSave" class="com.opm.eis.action.IndicatorsAction" method="save">
+			<result name="success">/jsp/references/strategyMetricsMng/indicatorSuccess.jsp</result>
+		</action>
+
+
+		<action name="viewIndicator" class="com.opm.eis.action.IndicatorsAction" method="view">
+			<result name="success">/jsp/references/strategyMetricsMng/indicatorView.jsp</result>
+		</action>
+				
+	<!-- End Configuration for Indicators Management -->
+
+	</package>
+
+</struts>
